@@ -3,26 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-enum BetValue{
-    ONE(1),
-    FIVE(5),
-    TEN(10),
-    TWENTY(20),
-    FIFTY(50),
-    ONE_HUNDRED(100);
 
-    private int betValue;
-
-    BetValue(int value){
-        this.betValue = value;
-
-    }
-    public int getValue(){
-
-        return betValue;
-    }
-
-}
 public class gameGUI extends JFrame {
     private int xPos; // Default x position of game window
     private int yPos; // Default y position of game window
@@ -30,27 +11,35 @@ public class gameGUI extends JFrame {
     private final int height = 600; // Desired height dimension of game window
     private Toolkit tools;
     private Dimension dim;
-
+    //--PANELS--
     private JPanel buttonPanel = new JPanel();
     private JPanel betPanel = new JPanel();
     private JPanel playButtonPanel = new JPanel();
     private JPanel displayPanel = new JPanel();
     private JPanel playerArea = new JPanel();
     private JPanel dealerArea = new JPanel();
-
+    //--LABELS--
     private JLabel betAreaText = new JLabel("Bet Amount:");
-
-    /*
-     Did not create these buttons using createButton() because their layout is properly spaced and formatted
-     While the alignment for the betting buttons used need rigid areas and their sizes clearly need to be equalized
-      */
+    //--BUTTONS--
+    private JButton playButton = new JButton("Play");
     private JButton hitButton = new JButton("Hit");
     private JButton standButton = new JButton("Stand");
     private JButton doubleButton = new JButton("Double");
     private JButton splitButton = new JButton("Split");
-
+    private JButton betButton1 = new JButton("$1");
+    private JButton betButton5 = new JButton("$5");
+    private JButton betButton10 = new JButton("$10");
+    private JButton betButton20 = new JButton("$20");
+    private JButton betButton50 = new JButton("$50");
+    private JButton betButton100 = new JButton("$100");
+    //--LISTENERS--
+    private ListenForActionButton actionButtonListener = new ListenForActionButton();
+    private ListenForBetButton betButtonListener = new ListenForBetButton();
+    //--CONSTANTS--
     private final Border blackBorder = BorderFactory.createLineBorder(Color.black);
-
+    private final Dimension playArea = new Dimension (width / 2 - 60, height / 2);
+    private final Dimension rigidAreaDim = new Dimension(0, 20);
+    private final Dimension buttonSize = new Dimension (70, 25);
 
 
     public gameGUI(){
@@ -69,36 +58,97 @@ public class gameGUI extends JFrame {
         this.setTitle("Blackjack");
         this.setVisible(true);
 
-        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(buttonPanel, BorderLayout.PAGE_END); // Add panel for player interaction button for cards
         buttonPanel.add(hitButton);
         buttonPanel.add(standButton);
         buttonPanel.add(doubleButton);
         buttonPanel.add(splitButton);
-        this.add(displayPanel, BorderLayout.EAST);
+        hitButton.addActionListener(actionButtonListener);
+        doubleButton.addActionListener(actionButtonListener);
+        splitButton.addActionListener(actionButtonListener);
+
+        this.add(displayPanel, BorderLayout.EAST); // Setup area where card images should be displayed
         displayPanel.add(playerArea);
         displayPanel.add(dealerArea);
         playerArea.setBorder(blackBorder);
         dealerArea.setBorder(blackBorder);
-        betPanel.add(betAreaText, BorderLayout.NORTH);
+        playerArea.setPreferredSize(playArea);
+        dealerArea.setPreferredSize(playArea);
         this.add(betPanel, BorderLayout.WEST);
-        for (int i = 0; i < BetValue.values().length; i++){
-            betPanel.add(createButton("$" + Integer.toString(BetValue.values()[i].getValue()), new Dimension(75,30)));
-            betPanel.add(Box.createRigidArea(new Dimension(0,22)));
+        betPanel.add(betAreaText, BorderLayout.NORTH);
+        betButtonSetup(betButton1);
+        betButtonSetup(betButton5);
+        betButtonSetup(betButton10);
+        betButtonSetup(betButton20);
+        betButtonSetup(betButton50);
+        betButtonSetup(betButton100);
+
+        betPanel.add(betButton1);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(betButton5);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(betButton10);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(betButton20);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(betButton50);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(betButton100);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+    }
+
+    public void betButtonSetup(JButton button){ // Used to keep bet button size consistent and add listener
+        button.setPreferredSize(buttonSize);
+        button.setMaximumSize(buttonSize);
+        button.setMinimumSize(buttonSize);
+        button.addActionListener(betButtonListener);
+    }
+
+
+
+    private class ListenForActionButton implements ActionListener{
+        //TODO
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == playButton){
+
+            }
+            else if (e.getSource() == hitButton){
+
+            }
+            else if (e.getSource() == standButton){
+
+            }
+            else if (e.getSource() == doubleButton){
+
+            }
+            else if (e.getSource() == splitButton){
+
+            }
 
         }
-
-
-        playerArea.setPreferredSize(new Dimension(width/ 2 - 55, height / 2));
-        dealerArea.setPreferredSize(new Dimension(width / 2 - 55, height / 2));
-
-    }
-    private JButton createButton(String text, Dimension size){
-        JButton button = new JButton(text);
-        button.setPreferredSize(size);
-        button.setMinimumSize(size);
-        button.setMaximumSize(size);
-
-        return button;
     }
 
+    private class ListenForBetButton implements ActionListener{
+        //TODO
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == betButton1){
+
+            }
+            else if (e.getSource() == betButton5){
+
+            }
+            else if (e.getSource() == betButton10){
+
+            }
+            else if (e.getSource() == betButton20){
+
+            }
+            else if (e.getSource() == betButton50){
+
+            }
+            else if (e.getSource() == betButton100){
+
+            }
+        }
+    }
 }

@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class gameGUI extends JFrame {
+    Start main;
     private int xPos; // Default x position of game window
     private int yPos; // Default y position of game window
     private final int width = 800; // Desired width dimension of game window
@@ -16,10 +17,14 @@ public class gameGUI extends JFrame {
     private JPanel betPanel = new JPanel();
     private JPanel playButtonPanel = new JPanel();
     private JPanel displayPanel = new JPanel();
+    private JPanel infoPanel = new JPanel();
     private JPanel playerArea = new JPanel();
     private JPanel dealerArea = new JPanel();
     //--LABELS--
     private JLabel betAreaText = new JLabel("Bet Amount:");
+    private JTextArea playerText = new JTextArea(""); // Used before image implementation
+    private JLabel dealerText = new JLabel(""); // Used before image implementation
+    private JLabel moneyLabel = new JLabel("Money: $100");
     //--BUTTONS--
     private JButton playButton = new JButton("Play");
     private JButton hitButton = new JButton("Hit");
@@ -38,11 +43,16 @@ public class gameGUI extends JFrame {
     //--CONSTANTS--
     private final Border blackBorder = BorderFactory.createLineBorder(Color.black);
     private final Dimension playArea = new Dimension (width / 2 - 60, height / 2);
+    private final Dimension infoBox = new Dimension(60, 40);
     private final Dimension rigidAreaDim = new Dimension(0, 20);
     private final Dimension buttonSize = new Dimension (70, 25);
+    //--VALUES--
+    private int betTotal; // Not sure if I should also handle this in Start where I route all my game logic from GUI
 
 
-    public gameGUI(){
+    public gameGUI(Start parentGame){
+        main = parentGame;
+        betTotal = 0;
         this.setSize(width, height);
         this.tools = Toolkit.getDefaultToolkit();
         this.dim = tools.getScreenSize();
@@ -57,23 +67,31 @@ public class gameGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Blackjack");
         this.setVisible(true);
+        playButton.addActionListener(actionButtonListener);
+
 
         this.add(buttonPanel, BorderLayout.PAGE_END); // Add panel for player interaction button for cards
         buttonPanel.add(hitButton);
         buttonPanel.add(standButton);
         buttonPanel.add(doubleButton);
         buttonPanel.add(splitButton);
+        buttonPanel.add(playButton);
         hitButton.addActionListener(actionButtonListener);
         doubleButton.addActionListener(actionButtonListener);
         splitButton.addActionListener(actionButtonListener);
 
         this.add(displayPanel, BorderLayout.EAST); // Setup area where card images should be displayed
-        displayPanel.add(playerArea);
-        displayPanel.add(dealerArea);
+        displayPanel.add(playerArea, BorderLayout.WEST);
+        displayPanel.add(dealerArea, BorderLayout.EAST);
+        playerArea.add(playerText);
         playerArea.setBorder(blackBorder);
         dealerArea.setBorder(blackBorder);
         playerArea.setPreferredSize(playArea);
+        playerArea.setMinimumSize(playArea);
         dealerArea.setPreferredSize(playArea);
+        dealerArea.setMinimumSize(playArea);
+
+
         this.add(betPanel, BorderLayout.WEST);
         betPanel.add(betAreaText, BorderLayout.NORTH);
         betButtonSetup(betButton1);
@@ -95,6 +113,11 @@ public class gameGUI extends JFrame {
         betPanel.add(Box.createRigidArea(rigidAreaDim));
         betPanel.add(betButton100);
         betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(moneyLabel);
+
+        playMenuSetup();
+
+
     }
 
     public void betButtonSetup(JButton button){ // Used to keep bet button size consistent and add listener
@@ -104,15 +127,48 @@ public class gameGUI extends JFrame {
         button.addActionListener(betButtonListener);
     }
 
+    public void playMenuSetup(){
+        betAreaText.setVisible(false);
+        moneyLabel.setVisible(false);
+        betButton1.setVisible(false);
+        betButton5.setVisible(false);
+        betButton10.setVisible(false);
+        betButton20.setVisible(false);
+        betButton50.setVisible(false);
+        betButton100.setVisible(false);
+        hitButton.setVisible(false);
+        standButton.setVisible(false);
+        doubleButton.setVisible(false);
+        splitButton.setVisible(false);
+
+    }
+    public void gameSetup(){
+        playButton.setVisible(false);
+        betAreaText.setVisible(true);
+        moneyLabel.setVisible(true);
+        betButton1.setVisible(true);
+        betButton5.setVisible(true);
+        betButton10.setVisible(true);
+        betButton20.setVisible(true);
+        betButton50.setVisible(true);
+        betButton100.setVisible(true);
+        hitButton.setVisible(true);
+        standButton.setVisible(true);
+        doubleButton.setVisible(true);
+        splitButton.setVisible(true);
+
+    }
 
 
     private class ListenForActionButton implements ActionListener{
         //TODO
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == playButton){
+                gameSetup();
 
             }
             else if (e.getSource() == hitButton){
+                main.hit();
 
             }
             else if (e.getSource() == standButton){

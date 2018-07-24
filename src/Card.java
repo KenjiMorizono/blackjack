@@ -57,9 +57,10 @@ public class Card {
 
     }
 
-    public Value getCardValue(){
+    public int getCardValue(){
 
-        return cardValue;
+
+        return this.getCardValue();
     }
 
     public Suit getCardSuit(){

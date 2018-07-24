@@ -60,7 +60,7 @@ public class Card {
     public int getCardValue(){
 
 
-        return this.getCardValue();
+        return this.cardValue.ordinal();
     }
 
     public Suit getCardSuit(){

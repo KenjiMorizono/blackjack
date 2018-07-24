@@ -21,10 +21,11 @@ public class gameGUI extends JFrame {
     private JPanel playerArea = new JPanel();
     private JPanel dealerArea = new JPanel();
     //--LABELS--
-    private JLabel betAreaText = new JLabel("Bet Amount:");
+    private JLabel betAreaText = new JLabel("Add Bet:");
     private JTextArea playerText = new JTextArea(""); // Used before image implementation
     private JLabel dealerText = new JLabel(""); // Used before image implementation
     private JLabel moneyLabel = new JLabel("Money: $100");
+    private JLabel betAmountLabel = new JLabel("Bet Amount: $1");
     //--BUTTONS--
     private JButton playButton = new JButton("Play");
     private JButton hitButton = new JButton("Hit");
@@ -42,17 +43,17 @@ public class gameGUI extends JFrame {
     private ListenForBetButton betButtonListener = new ListenForBetButton();
     //--CONSTANTS--
     private final Border blackBorder = BorderFactory.createLineBorder(Color.black);
-    private final Dimension playArea = new Dimension (width / 2 - 60, height / 2);
+    private final Dimension playArea = new Dimension (width / 2 - 64, height / 2);
     private final Dimension infoBox = new Dimension(60, 40);
     private final Dimension rigidAreaDim = new Dimension(0, 20);
     private final Dimension buttonSize = new Dimension (70, 25);
-    //--VALUES--
+    //--OTHER VALUES--
     private int betTotal; // Not sure if I should also handle this in Start where I route all my game logic from GUI
 
 
     public gameGUI(Start parentGame){
         main = parentGame;
-        betTotal = 0;
+        betTotal = 1;
         this.setSize(width, height);
         this.tools = Toolkit.getDefaultToolkit();
         this.dim = tools.getScreenSize();
@@ -114,6 +115,8 @@ public class gameGUI extends JFrame {
         betPanel.add(betButton100);
         betPanel.add(Box.createRigidArea(rigidAreaDim));
         betPanel.add(moneyLabel);
+        betPanel.add(Box.createRigidArea(rigidAreaDim));
+        betPanel.add(betAmountLabel);
 
         playMenuSetup();
 
@@ -130,6 +133,7 @@ public class gameGUI extends JFrame {
     public void playMenuSetup(){
         betAreaText.setVisible(false);
         moneyLabel.setVisible(false);
+        betAmountLabel.setVisible(false);
         betButton1.setVisible(false);
         betButton5.setVisible(false);
         betButton10.setVisible(false);
@@ -146,6 +150,7 @@ public class gameGUI extends JFrame {
         playButton.setVisible(false);
         betAreaText.setVisible(true);
         moneyLabel.setVisible(true);
+        betAmountLabel.setVisible(true);
         betButton1.setVisible(true);
         betButton5.setVisible(true);
         betButton10.setVisible(true);
@@ -156,6 +161,16 @@ public class gameGUI extends JFrame {
         standButton.setVisible(true);
         doubleButton.setVisible(true);
         splitButton.setVisible(true);
+
+    }
+
+    public int getBetTotal(){
+
+        return betTotal;
+    }
+
+    public void addToBet(int amount){
+        this.betTotal += amount;
 
     }
 
@@ -188,21 +203,27 @@ public class gameGUI extends JFrame {
         //TODO
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == betButton1){
-
+                addToBet(1);
+                System.out.print(betTotal);
+                betAmountLabel.setText("Bet Amount: $" + betTotal + " ");
             }
             else if (e.getSource() == betButton5){
-
+                addToBet(5);
             }
             else if (e.getSource() == betButton10){
+                addToBet(10);
 
             }
             else if (e.getSource() == betButton20){
+                addToBet(20);
 
             }
             else if (e.getSource() == betButton50){
+                addToBet(50);
 
             }
             else if (e.getSource() == betButton100){
+                addToBet(100);
 
             }
         }

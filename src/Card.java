@@ -57,10 +57,44 @@ public class Card {
 
     }
 
-    public int getCardValue(){
+    public int getIntCardVal(){
+        int enumVal = this.cardValue.ordinal();
 
+        switch (enumVal){
+            case 0: // ACE
+                return 11;
+            case 1: // TWO
+                return 2;
+            case 2: // THREE
+                return 3;
+            case 3: // FOUR
+                return 4;
+            case 4: // FIVE
+                return 5;
+            case 5: // SIX
+                return 6;
+            case 6: // SEVEN
+                return 7;
+            case 7: // EIGHT
+                return 8;
+            case 8: // NINE
+                return 9;
+            case 9: // TEN
+                return 10;
+            case 10: // JACK
+                return 10;
+            case 11: // QUEEN
+                return 10;
+            case 12: // KING
+                return 10;
+            default:
+                return -1;
+        }
+    }
 
-        return this.cardValue.ordinal();
+    public String getCardName(){
+
+        return this.cardValue.name();
     }
 
     public Suit getCardSuit(){

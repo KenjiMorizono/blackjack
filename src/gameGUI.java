@@ -146,6 +146,7 @@ public class gameGUI extends JFrame {
         button.setPreferredSize(inputButtonSize);
         button.setMaximumSize(inputButtonSize);
         button.setMinimumSize(inputButtonSize);
+        button.addActionListener(actionButtonListener);
 
     }
 

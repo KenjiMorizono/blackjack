@@ -71,6 +71,8 @@ public class Start{
 
 
     public void hit(){
+        playerHand.drawCard(blackJackDeck);
+        playerHand.printHand();
 
 
     }

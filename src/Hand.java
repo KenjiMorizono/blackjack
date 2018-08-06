@@ -49,30 +49,35 @@ public class Hand {
         and the hand value as a card is added to account for aces, though this might be a bad reason and there
         may be a solution I am not seeing (most likely as recalculating every-time is costly), if so I am sorry
          */
+        int cardVal = 0;
+
         this.setAceCount();
         for (int i = 0; i < hand.size(); i++){
-            handVal += hand.get(i).getIntCardVal();
+            cardVal += hand.get(i).getIntCardVal();
 
         }
-        if (handVal > 21 && aceCount > 0){
+        if (cardVal > 21 && aceCount > 0){
             for (int i = 0; i < aceCount; i++){
-                handVal -= 10;
+                cardVal -= 10;
 
             }
 
         }
 
+        this.handVal = cardVal;
     }
 
     public void setAceCount(){
+        int numAces = 0;
+
         for (int i = 0; i < hand.size(); i++){
             if (hand.get(i).getCardName().equals("Ace")){
-                aceCount += 1;
+                numAces += 1;
 
             }
 
         }
-
+        this.aceCount = numAces;
     }
 
     public int getHandValue(){

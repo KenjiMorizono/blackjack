@@ -102,6 +102,10 @@ public class Card {
         return cardSuit;
     }
 
+    public void setFaceDown(){
+        this.isFaceDown = true;
+    }
+
     public void flipCard(){
         this.isFaceDown = false;
 

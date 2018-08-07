@@ -1,27 +1,19 @@
 public class Start{
-    private Hand playerHand;
-    private Hand dealerHand;
+    private Player player1;
+    private Player dealer;
     private Deck blackJackDeck;
-    private int playerMoney;
     private int betAmount;
 
     public Start(){
         blackJackDeck = new Deck();
-        playerHand = new Hand(false);
-        dealerHand = new Hand(true);
-        playerMoney = 100;
+        player1 = new Player(false, blackJackDeck);
+        dealer = new Player(true, blackJackDeck);
         betAmount = 1;
 
         gameGUI gameWindow = new gameGUI(this);
-        playerHand.initHand(blackJackDeck);
-        dealerHand.initHand(blackJackDeck);
 
-        playerHand.printHand();
-        dealerHand.printHand();
-
-
-
-
+        player1.printHand();
+        dealer.printHand();
     }
 
     public static void main(String[] args){
@@ -29,18 +21,8 @@ public class Start{
 
     }
 
-    public void addPlayerMoney(int moneyIncrease){
-        this.playerMoney += moneyIncrease;
-
-    }
-
-    public int getPlayerMoney(){
-
-        return playerMoney;
-    }
-
     public boolean enoughBetMoney(int bet){
-        if (betAmount + bet <= playerMoney){
+        if (betAmount + bet <= player1.getPlayerMoney()){
 
             return true;
         }
@@ -65,17 +47,13 @@ public class Start{
 
     public int getPlayerHandVal(){
 
-        return this.playerHand.getHandValue();
+        return player1.getHandValue();
     }
-
-
 
     public void hit(){
-        playerHand.drawCard(blackJackDeck);
-        playerHand.printHand();
-
+        player1.drawCard(blackJackDeck);
+        player1.printHand();
 
     }
-
 
 }

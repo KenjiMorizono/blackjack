@@ -2,31 +2,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Hand {
-    private boolean isDealer;
     private int handVal;
     private int aceCount;
-    private ArrayList<Card> hand = new ArrayList<Card>();
+    private ArrayList<Card> hand;
 
-    public Hand(boolean isDealer){
-        this.isDealer = isDealer;
+    public Hand(){
         this.handVal = 0;
         this.aceCount = 0;
-
+        hand = new ArrayList<Card>();
     }
 
-    public void drawCard(Deck gameDeck){ // Add card drawn from deck, should be using deck.drawCard()
-        Card drawnCard;
-        drawnCard = gameDeck.drawCard();
-        this.hand.add(drawnCard);
+    public void drawCard(Deck gameDeck){
+        this.hand.add(gameDeck.drawCard());
         this.calculateHandVal();
 
     }
 
-    public void initHand(Deck gameDeck){
+    public void initHandPlayer(Deck gameDeck){
         this.hand.add(gameDeck.drawCard());
         this.hand.add(gameDeck.drawCard());
         this.calculateHandVal();
 
+    }
+
+    public void initHandDealer(Deck gameDeck){
+        this.hand.add(gameDeck.drawCard());
+        this.hand.get(0).setFaceDown();
+        this.hand.add(gameDeck.drawCard());
+        this.calculateHandVal();
 
     }
 
@@ -45,7 +48,7 @@ public class Hand {
     public void calculateHandVal(){
         /*
         Method will set handVal variable based on cards in the hand
-        I am using a seperate method instead of calculating the hand value at the start
+        I am using a separate method instead of calculating the hand value at the start
         and the hand value as a card is added to account for aces, though this might be a bad reason and there
         may be a solution I am not seeing (most likely as recalculating every-time is costly), if so I am sorry
          */

@@ -21,3 +21,6 @@ Doubling Down:
 Splitting:
   Players will be able to split pairs playing them each as seperate hands
   
+
+Card images are from the Google Code Archive under vector-playing-cards which can be found at:
+https://code.google.com/archive/p/vector-playing-cards/

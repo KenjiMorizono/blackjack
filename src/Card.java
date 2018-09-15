@@ -87,7 +87,7 @@ public class Card {
                 return 10;
             case 12: // KING
                 return 10;
-            default:
+            default: // Shouldn't ever be used
                 return -1;
         }
     }

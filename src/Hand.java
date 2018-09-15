@@ -12,10 +12,17 @@ public class Hand {
         hand = new ArrayList<Card>();
     }
 
-    public void drawCard(Deck gameDeck){
-        this.hand.add(gameDeck.drawCard());
+    public ArrayList<Card> getHand(){
+
+        return this.hand;
+    }
+
+    public Card drawCard(Deck gameDeck){
+        Card drawnCard = gameDeck.drawCard();
+        this.hand.add(drawnCard);
         this.calculateHandVal();
 
+        return drawnCard;
     }
 
     public void initHandPlayer(Deck gameDeck){
@@ -33,7 +40,7 @@ public class Hand {
 
     }
 
-    public void printHand(){ // For debugging
+    public void printHand(){ // For debug
         for (int i = 0; i < hand.size(); i++){
             System.out.println("Computer Card Value: " + hand.get(i).getIntCardVal());
             System.out.print(hand.get(i).getCardName() + " of ");
@@ -53,16 +60,20 @@ public class Hand {
         may be a solution I am not seeing (most likely as recalculating every-time is costly), if so I am sorry
          */
         int cardVal = 0;
-
         this.setAceCount();
+
         for (int i = 0; i < hand.size(); i++){
             cardVal += hand.get(i).getIntCardVal();
 
         }
         if (cardVal > 21 && aceCount > 0){
-            for (int i = 0; i < aceCount; i++){
-                cardVal -= 10;
+            while (cardVal > 21){
+                if (aceCount == 0){
 
+                    break;
+                }
+                cardVal -= 10;
+                aceCount -= 1;
             }
 
         }
@@ -84,7 +95,7 @@ public class Hand {
     }
 
     public int getHandValue(){
-
+        this.calculateHandVal();
         return handVal;
     }
 

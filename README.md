@@ -1,7 +1,4 @@
-# blackjack
-Note: Project is not functioning, I am adding functionality a little at a time to get used to version control
-      I am also having fun creating my first GUI for a game
-      
+# blackjack      
 Objective:
   The player tries to beat the dealer in getting as close to 21 as possible without going over
 

@@ -21,3 +21,13 @@ Splitting:
 
 Card images are from the Google Code Archive under vector-playing-cards which can be found at:
 https://code.google.com/archive/p/vector-playing-cards/
+
+
+TODO:
+  Make use of flip boolean to display flipped card image for dealer (not included in vector google assets likely because the card resources were meant to be used for poker or some similar game, either will find new assets to make use of that have a card back image to prevent inconsistency in art style or I will use the joker as a flipped card image
+  
+  Delay display of cards for some amount of time to simulate the cards being placed in front of the player
+  
+  Add sfx perhaps
+  
+  Definitely improve how the GUI looks, I don't know a lot about making stuff pretty though, might follow tutorials/take a course when I create and finish enough projects
